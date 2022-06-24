@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -38,9 +39,14 @@ class EventController extends Controller
         return redirect()->back();
     }
 
+    public function show(Event $event)
+    {
+        return view("show", compact('event'));
+    }
+
     public function edit(Event $event)
     {
-       return view ('edit', compact('event'));
+        return view('edit', compact('event'));
     }
 
     public function update(Event $event)
@@ -52,6 +58,20 @@ class EventController extends Controller
             'quota' => request()->quota,
             'price' => request()->price,
             'location' => request()->location,
+        ]);
+
+        return redirect('/');
+    }
+
+    public function buy(Event $event)
+    {
+        Ticket::create([
+            'event_id' => $event->id,
+            'quantity' => request()->quantity,
+        ]);
+
+        $event->update([
+            'quota' => $event->quota-request()->quantity,
         ]);
 
         return redirect('/');
