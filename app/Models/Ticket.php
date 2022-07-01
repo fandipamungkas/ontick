@@ -13,6 +13,8 @@ class Ticket extends Model
         'user_id',
         'event_id',
         'quantity',
+        'price',
+        'payment_method',
     ];
 
     public function event()

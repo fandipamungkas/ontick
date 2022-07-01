@@ -63,34 +63,40 @@ class EventController extends Controller
 
         return redirect('/');
     }
-
-    public function buy(Event $event)
-    {
-        Ticket::create([
-            'event_id' => $event->id,
-            'quantity' => request()->quantity,
-        ]);
-
-        $event->update([
-            'quota' => $event->quota-request()->quantity,
-        ]);
-
-        return redirect('/');
-    }
-    public function payment(Event $event)
-    {
-        return $cart = Cart::get();
-        return view ("payment");
-    }
-
     public function addcart(Event $event)
     {
-        Cart::create([
+        if (request()->quantity > $event->quota) {
+            return redirect()->back();
+        }
+        auth()->user()->cart()->create([
             'event_id' => $event->id,
             'quantity' => request()->quantity,
             'price' => $event->price * request()->quantity,
         ]);
 
         return redirect()->route('payment');
+    }
+
+    public function payment()
+    {
+        $cart = Cart::latest()->first();
+        return view ('payment', compact('cart'));
+    }
+    public function buy(Cart $cart)
+    {
+        auth()->user()->tickets()->create([
+            'event_id' => $cart->event_id,
+            'quantity' => $cart->quantity,
+            'price' => $cart->price,
+            'payment_method' => request()->payment_method,
+        ]);
+
+        $cart->event->update([
+            'quota' => $cart->event->quota - $cart->quantity,
+        ]);
+
+        $cart->delete();
+
+        return redirect('/');
     }
 }
