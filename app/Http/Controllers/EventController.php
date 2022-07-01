@@ -9,9 +9,15 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    // create method to count
+
     public function index()
     {
         $events = Event::get();
+
+        if (auth()->user() && auth()->user()->role == 'admin') {
+            return view('admin.index', compact('events'));
+        }
         return view('index', compact('events'));
     }
 
