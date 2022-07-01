@@ -1,4 +1,4 @@
-@extends('template.master')
+@extends('layouts.app')
 @section('content')
     <a class="btn btn-success mb-3" href="{{route('ticket.index')}}">My Tickets</a>
 
