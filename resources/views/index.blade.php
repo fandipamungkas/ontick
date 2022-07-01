@@ -1,6 +1,6 @@
-@extends('template.master')
+@extends('layouts.app')
 @section('content')
-    <a class="btn btn-success mb-3" href="{{route('ticket.index')}}">My Tickets</a>
+    <a class="btn btn-success mb-3" href="{{ route('ticket.index') }}">My Tickets</a>
 
     <a class="btn btn-success" href="create">Buat Event Baru</a>
     <h1 class="mt-4">Daftar Event</h1>
@@ -26,7 +26,7 @@
                     <td>{{ $event->price }}</td>
                     <td>{{ $event->location }}</td>
                     <td class="d-flex">
-                        <a href="{{route("show",$event->id)}}" class="btn btn-primary me-2" >Detail</a>
+                        <a href="{{ route('show', $event->id) }}" class="btn btn-primary me-2">Detail</a>
 
                         <a class="btn btn-warning me-2" href="edit/{{ $event->id }}">edit</a>
 

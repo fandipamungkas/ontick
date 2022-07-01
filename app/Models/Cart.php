@@ -14,4 +14,9 @@ class Cart extends Model
         'quantity',
         'price',
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

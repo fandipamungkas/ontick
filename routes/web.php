@@ -17,8 +17,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('buy/{event:id}', [EventController::class, 'buy'])->name('buy');
-Route::post('add-cart/{event:id}', [EventController::class, 'addcart'])->name('addcart');
-Route::get('payment', [EventController::class, 'payment'])->name('payment');
-
-Route::get('my-tickets', [TicketController::class, 'index'])->name('ticket.index');
+// make group middleware auth
+Route::middleware('auth')->group(function () {
+    Route::post('buy/{cart:id}', [EventController::class, 'buy'])->name('buy');
+    Route::post('add-cart/{event:id}', [EventController::class, 'addcart'])->name('addcart');
+    Route::get('payment', [EventController::class, 'payment'])->name('payment');
+    Route::get('my-tickets', [TicketController::class, 'index'])->name('ticket.index');
+});
