@@ -12,6 +12,10 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::get();
+
+        if (auth()->user() && auth()->user()->role == 'admin'){
+            return view('admin.index', compact('events'));}
+            
         return view('index', compact('events'));
     }
 
