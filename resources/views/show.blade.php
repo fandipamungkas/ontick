@@ -8,10 +8,10 @@
     <p>Harga: {{ $event->price }}</p>
     <p>Lokasi: {{ $event->location }}</p>
 
-    <form action="{{route('buy',$event->id)}}" method="post">
+    <form action="{{ route('addcart', $event->id) }}" method="post">
         @csrf
 
         <input type="number" name="quantity" id="quantity" class="form-control mb-2" placeholder="Jumlah">
-        <button type="submit" class="btn btn-primary">Buy ticket!</button>
+        <button type="submit" class="btn btn-primary">CheckOut!</button>
     </form>
 @endsection
