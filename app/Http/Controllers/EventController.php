@@ -31,6 +31,16 @@ class EventController extends Controller
 
     public function store()
     {
+        request()->validate([
+            "image" => 'required',
+            "title" => 'required',
+            "description" => 'required',
+            "datetime" => 'required',
+            "quota" => 'required',
+            "price" => 'required',
+            "location" => 'required',
+        ]);
+
         if (request()->file('image')) {
             $image = request()->file('image');
             $title = \Str::slug(request()->title);
@@ -59,6 +69,15 @@ class EventController extends Controller
 
     public function update(Event $event)
     {
+        request()->validate([
+            "title" => 'required',
+            "description" => 'required',
+            "datetime" => 'required',
+            "quota" => 'required',
+            "price" => 'required',
+            "location" => 'required',
+        ]);
+
         if (request()->file('image')) {
             \Storage::delete($event->image);
 
@@ -104,6 +123,9 @@ class EventController extends Controller
     public function payment()
     {
         $cart = Cart::latest()->first();
+        if (!$cart) {
+            return redirect()->route('index');
+        }
         return view ("payment", compact('cart'));
     }
 
@@ -122,6 +144,6 @@ class EventController extends Controller
 
         $cart->delete();
 
-        return redirect('/');
+        return redirect()->route('ticket.index');
     }
 }

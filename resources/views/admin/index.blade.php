@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
-    <a class="btn btn-success mb-3" href="{{route('ticket.index')}}">My Tickets</a>
-
-    <a class="btn btn-success" href="create">Buat Event Baru</a>
+    <div class="d-flex">
+        <a class="btn btn-success" href="create">Buat Event Baru</a>
+    </div>
     <h1 class="mt-4">Daftar Event</h1>
     <table class="table">
         <thead>
@@ -21,7 +21,7 @@
             @foreach ($events as $event)
                 <tr>
                     <td>
-                        <img src="{{ $event->takeImage() }}" alt="">
+                        <img src="{{ $event->takeImage() }}" alt="" style="width:200px">
                     </td>
                     <td>{{ $event->title }}</td>
                     <td>{{ $event->description }}</td>
@@ -29,10 +29,8 @@
                     <td>{{ $event->quota }}</td>
                     <td>{{ $event->price }}</td>
                     <td>{{ $event->location }}</td>
-                    <td class="d-flex">
-                        <a href="{{route("show",$event->id)}}" class="btn btn-primary me-2" >Detail</a>
-
-                        <a class="btn btn-warning me-2" href="edit/{{ $event->id }}">edit</a>
+                    <td>
+                        <a class="btn btn-warning me-2 mb-2" href="edit/{{ $event->id }}">edit</a>
 
                         <form action="delete/{{ $event->id }}" method="POST">
                             @csrf

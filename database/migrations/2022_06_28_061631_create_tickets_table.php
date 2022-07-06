@@ -16,7 +16,7 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable();
-            $table->foreignId('event_id');
+            $table->foreignId('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->integer('quantity');
             $table->integer('price');
             $table->string('payment_method');

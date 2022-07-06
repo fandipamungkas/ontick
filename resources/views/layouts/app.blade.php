@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,75 +10,116 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href={{ asset('css/bootstrap.min.css') }}>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href={{ asset('css/font-awesome.min.css') }}>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href={{ asset('css/swiper.min.css') }}>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href={{ asset('css/style.css') }}>
 </head>
+
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <header class="site-header">
+            <div class="header-bar">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-10 col-lg-2 order-lg-1">
+                            <div class="site-branding">
+                                <div class="site-title">
+                                    <a href="/"><img src={{ asset('images/logo.png') }} alt="logo"></a>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                        <div class="col-2 col-lg-7 order-3 order-lg-2">
+                            <nav class="site-navigation">
+                                <div class="hamburger-menu d-lg-none">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
 
-                    </ul>
+                                <ul>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href={{ route('ticket.index') }}>My Tickets</a></li>
+                                </ul>
+                            </nav>
+                        </div>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                        <div class="col-lg-3 d-none d-lg-block order-2 order-lg-3">
+                            @guest
+                                <div class="buy-tickets">
+                                    <a class="btn gradient-bg" href="{{ route('login') }}">Login</a>
+                                </div>
+                            @else
+                                <p href="#" class="text-white mb-0">
+                                    <span class="mr-2">{{ Auth::user()->name }}</span>
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    <a class="btn gradient-bg" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                                </p>
+                            @endguest
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-
-        <main class="py-4 container">
-            @yield('content')
-        </main>
     </div>
+
+    @yield('content')
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-white">
+                    <figure class="footer-logo">
+                        <a href="#"><img src="images/logo.png" alt="logo"></a>
+                    </figure>
+
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+                    <div class="footer-social">
+                        <ul class="flex flex-wrap justify-content-center align-items-center">
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type='text/javascript' src={{ asset('js/jquery.js') }}></script>
+    <script type='text/javascript' src={{ asset('js/masonry.pkgd.min.js') }}></script>
+    <script type='text/javascript' src={{ asset('js/jquery.collapsible.min.js') }}></script>
+    <script type='text/javascript' src={{ asset('js/swiper.min.js') }}></script>
+    <script type='text/javascript' src={{ asset('js/jquery.countdown.min.js') }}></script>
+    <script type='text/javascript' src={{ asset('js/circle-progress.min.js') }}></script>
+    <script type='text/javascript' src={{ asset('js/jquery.countTo.min.js') }}></script>
+    <script type='text/javascript' src={{ asset('js/custom.js') }}></script>
 </body>
+
 </html>
