@@ -6,6 +6,7 @@
     <table class="table">
         <thead>
             <tr>
+                <td>Image</td>
                 <td>Nama Event</td>
                 <td>Deskripsi</td>
                 <td>Waktu</td>
@@ -18,6 +19,7 @@
         <tbody>
             @foreach ($events as $event)
                 <tr>
+                    <td>{{ $event->image }}</td>
                     <td>{{ $event->title }}</td>
                     <td>{{ $event->description }}</td>
                     <td>{{ $event->datetime }}</td>

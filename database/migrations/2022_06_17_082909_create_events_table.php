@@ -21,6 +21,7 @@ class CreateEventsTable extends Migration
             $table->integer('quota');
             $table->integer('price');
             $table->string('location');
+            $table->string('image');
             $table->timestamps();
         });
     }

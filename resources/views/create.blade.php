@@ -2,8 +2,9 @@
 @section('content')
 
 <h2>Buat Event Baru</h2>
-<form action="store" method="POST">
+<form action="store" method="POST" enctype="multipart/form-data">
     @csrf
+    <input type="file" class="form-control mb-3" name="image" id="image">
     <input type="text" class="form-control mb-3" name="title" id="title" placeholder="Masukkan Judul Event">
     <input type="text" class="form-control mb-3" name="description" id="description" placeholder="Masukkan Deskripsi">
     <input type="datetime-local" class="form-control mb-3" name="datetime" id="datetime" placeholder="Date Time">

@@ -19,6 +19,11 @@ class EventController extends Controller
         return view('index', compact('events'));
     }
 
+    public function show(Event $event)
+    {
+        return view("show", compact('event'));
+    }
+
     public function create()
     {
         return  view('create');
@@ -26,6 +31,14 @@ class EventController extends Controller
 
     public function store()
     {
+        if (request()->file('image')) {
+            $image = request()->file('image');
+            $title = \Str::slug(request()->title);
+            $imageUrl = $image->storeAs("images/events", "{$title}.{$image->extension()}");
+        } else {
+            $imageUrl = null;
+        }
+
         Event::create([
             'title' => request()->title,
             'description' => request()->description,
@@ -33,20 +46,10 @@ class EventController extends Controller
             'quota' => request()->quota,
             'price' => request()->price,
             'location' => request()->location,
+            'image' => $imageUrl,
         ]);
 
         return redirect('/');
-    }
-
-    public function delete(Event $event)
-    {
-        $event->delete();
-        return redirect()->back();
-    }
-
-    public function show(Event $event)
-    {
-        return view("show", compact('event'));
     }
 
     public function edit(Event $event)
@@ -56,6 +59,14 @@ class EventController extends Controller
 
     public function update(Event $event)
     {
+        if (request()->file('image')) {
+            \Storage::delete($event->image);
+
+            $image = request()->file('image');
+            $imageUrl = $image->storeAs("images/events", "{$event->title}.{$image->extension()}");
+        } else {
+            $imageUrl = $event->image;
+        }
         $event->update([
             'title' => request()->title,
             'description' => request()->description,
@@ -63,9 +74,16 @@ class EventController extends Controller
             'quota' => request()->quota,
             'price' => request()->price,
             'location' => request()->location,
+            'image' => $imageUrl,
         ]);
 
         return redirect('/');
+    }
+
+    public function delete(Event $event)
+    {
+        $event->delete();
+        return redirect()->back();
     }
 
     public function addcart(Event $event)
