@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <div class="page-header events-page-header">
         <div class="container">
             <div class="row">
@@ -16,7 +15,7 @@
 
     <div class="events-list-page mt-5">
         <div class="container">
-            @foreach ($tickets as $ticket)
+            @forelse ($tickets as $ticket)
                 <div class="upcoming-events mb-3">
                     <div class="upcoming-events-header">
                         <h4>{{ $ticket->event->title }}</h4>
@@ -25,7 +24,7 @@
                         <!-- list item -->
                         <div class="upcoming-event-wrap flex flex-wrap justify-content-between align-items-center">
                             <figure class="events-thumbnail">
-                                <a href="#"><img src={{ $ticket->event->takeImage() }} alt="" style="border-radius:50%"></a>
+                                <a href="#"><img src={{ $ticket->event->takeImage() }} alt=""></a>
                             </figure>
 
                             <div class="entry-meta">
@@ -48,7 +47,10 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+
+            @empty
+                <h2 class="event-item-title mb-5">No tickets found</h2>
+            @endforelse
         </div>
     </div>
 @endsection

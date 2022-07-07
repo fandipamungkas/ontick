@@ -15,6 +15,11 @@
         </header>
 
         <div class="container">
+            @if (session()->has('error'))
+                <div class="alert alert-danger mt-3" role="alert">
+                    {{ session()->get('error') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="tabs">
@@ -41,7 +46,7 @@
 
                                         <div class="single-event-details-row mb-5">
                                             <label>Price:</label>
-                                            <p>{{ $event->price }}</p>
+                                            <p>Rp{{ $event->price }}</p>
                                         </div>
 
                                         <div class="single-event-details-row mb-5">
@@ -71,7 +76,7 @@
                             <div class="ticket-type flex justify-content-between align-items-center">
                                 <h3 class="entry-title"><span>Ticket</span> entry</h3>
 
-                                <div class="ticket-price">{{ $event->price }}</div>
+                                <div class="ticket-price">Rp{{ $event->price }}</div>
                             </div>
 
                             <form action="{{ route('addcart', $event->id) }}" method="post"
@@ -87,6 +92,11 @@
                                 <input type="submit" class="btn gradient-bg" value="Buy Ticket">
                             </form>
                         </div>
+                        @error('quantity')
+                            <div class="text-danger text-right">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@
     <div class="events-list-page mt-5">
         <div class="container">
             <div class="row events-list">
-                @foreach ($events as $event)
+                @forelse ($events as $event)
                     <div class="col-12 col-lg-6 single-event">
                         <figure class="events-thumbnail">
                             <a href="#"><img src={{ $event->takeImage() }} alt=""></a>
@@ -43,7 +43,9 @@
                             </footer>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <h2 class="event-item-title mb-5">No events found</h2>
+                @endforelse
 
             </div>
         </div>

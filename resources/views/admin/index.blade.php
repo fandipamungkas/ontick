@@ -30,7 +30,7 @@
                     <td>{{ $event->price }}</td>
                     <td>{{ $event->location }}</td>
                     <td>
-                        <a class="btn btn-warning me-2 mb-2" href="edit/{{ $event->id }}">edit</a>
+                        <a class="btn btn-warning me-2 mb-2" href="edit/{{ $event->id }}">Edit</a>
 
                         <form action="delete/{{ $event->id }}" method="POST">
                             @csrf

@@ -1158,8 +1158,12 @@ a:hover, a:active {
     outline: none;
 }
 
+/* .events-list {
+    height: unset !important;
+} */
+
 .events-list-page .single-event {
-    display: none;
+    /* display: none; */
     margin-bottom: 30px;
 }
 
@@ -1548,7 +1552,7 @@ ul.tabs-nav .tab-nav.active {
 }
 
 .single-event-page .tabs {
-    margin-top: 64px;
+    margin-top: 14px;
 }
 
 .single-event-page .tabs-container {

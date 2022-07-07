@@ -8,7 +8,7 @@
             <input type="file" class="form-control" name="image" id="image">
             @error('image')
                 <span class="text-danger small">
-                    <strong>{{ $message }}</strong>
+                    {{ $message }}
                 </span>
             @enderror
         </div>
@@ -18,7 +18,7 @@
                 placeholder="Masukkan Judul Event">
             @error('title')
                 <span class="text-danger small">
-                    <strong>{{ $message }}</strong>
+                    {{ $message }}
                 </span>
             @enderror
         </div>
@@ -28,7 +28,7 @@
                 placeholder="Masukkan Deskripsi">
             @error('description')
                 <span class="text-danger small">
-                    <strong>{{ $message }}</strong>
+                    {{ $message }}
                 </span>
             @enderror
         </div>
@@ -37,7 +37,7 @@
             <input type="datetime-local" class="form-control" name="datetime" id="datetime" placeholder="Date Time">
             @error('datetime')
                 <span class="text-danger small">
-                    <strong>{{ $message }}</strong>
+                    {{ $message }}
                 </span>
             @enderror
         </div>
@@ -46,7 +46,7 @@
             <input type="number" class="form-control" name="quota" id="quota" placeholder="Masukkan kuota">
             @error('quota')
                 <span class="text-danger small">
-                    <strong>{{ $message }}</strong>
+                    {{ $message }}
                 </span>
             @enderror
         </div>
@@ -55,7 +55,7 @@
             <input type="number" class="form-control" name="price" id="price" placeholder="Masukkan harga">
             @error('price')
                 <span class="text-danger small">
-                    <strong>{{ $message }}</strong>
+                    {{ $message }}
                 </span>
             @enderror
         </div>
@@ -64,7 +64,7 @@
             <input type="text" class="form-control" name="location" id="location" placeholder="Masukkan Lokasi">
             @error('location')
                 <span class="text-danger small">
-                    <strong>{{ $message }}</strong>
+                    {{ $message }}
                 </span>
             @enderror
         </div>

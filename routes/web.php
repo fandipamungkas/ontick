@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\TicketController;
+use App\Http\Controllers\{BuyController, EventController, TicketController};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -10,19 +9,17 @@ Route::get('show/{event:id}', [EventController::class, 'show'])->name('show');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::middleware('auth')->group(function () {
-    Route::post('add-cart/{event:id}', [EventController::class, 'addcart'])->name('addcart');
-    Route::get('payment', [EventController::class, 'payment'])->name('payment');
-    Route::post('buy/{cart:id}', [EventController::class, 'buy'])->name('buy');
+    Route::post('add-cart/{event:id}', [BuyController::class, 'addcart'])->name('addcart');
+    Route::get('payment', [BuyController::class, 'payment'])->name('payment');
+    Route::post('buy/{cart:id}', [BuyController::class, 'buy'])->name('buy');
     Route::get('my-tickets', [TicketController::class, 'index'])->name('ticket.index');
-    
-    Route::middleware('CheckRole')->group(function () {
+
+    Route::middleware('AdminRole')->group(function () {
         Route::get('create', [EventController::class, 'create'])->name('create');
         Route::post('store', [EventController::class, 'store'])->name('store');
         Route::get('edit/{event:id}', [EventController::class, 'edit'])->name('edit');
         Route::put('update/{event:id}', [EventController::class, 'update'])->name('update');
         Route::delete('delete/{event:id}', [EventController::class, 'delete'])->name('delete');
-    });  
+    });
 });
