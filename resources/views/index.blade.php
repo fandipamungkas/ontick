@@ -1,44 +1,53 @@
-@extends('template.master')
+@extends('layouts.app')
 @section('content')
-    <a class="btn btn-success mb-3" href="{{route('ticket.index')}}">My Tickets</a>
+    <div class="page-header events-page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="entry-header">
+                        <h1 class="entry-title">Events<h1>
+                    </header>
+                </div>
+            </div>
+        </div>
+    </div>
+    </header>
 
-    <a class="btn btn-success" href="create">Buat Event Baru</a>
-    <h1 class="mt-4">Daftar Event</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <td>Nama Event</td>
-                <td>Deskripsi</td>
-                <td>Waktu</td>
-                <td>Kuota</td>
-                <td>Harga</td>
-                <td>Lokasi</td>
-                <td>action</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($events as $event)
-                <tr>
-                    <td>{{ $event->title }}</td>
-                    <td>{{ $event->description }}</td>
-                    <td>{{ $event->datetime }}</td>
-                    <td>{{ $event->quota }}</td>
-                    <td>{{ $event->price }}</td>
-                    <td>{{ $event->location }}</td>
-                    <td class="d-flex">
-                        <a href="{{route("show",$event->id)}}" class="btn btn-primary me-2" >Detail</a>
+    <div class="events-list-page mt-5">
+        <div class="container">
+            <div class="row events-list">
+                @forelse ($events as $event)
+                    <div class="col-12 col-lg-6 single-event">
+                        <figure class="events-thumbnail">
+                            <a href="#"><img src={{ $event->takeImage() }} alt=""></a>
+                        </figure>
 
-                        <a class="btn btn-warning me-2" href="edit/{{ $event->id }}">edit</a>
+                        <div class="event-content-wrap">
+                            <header class="entry-header flex justify-content-between">
+                                <div>
+                                    <h2 class="entry-title"><a
+                                            href="{{ route('show', $event->id) }}">{{ $event->title }}</a></h2>
 
-                        <form action="delete/{{ $event->id }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger" type="submit">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+                                    <div class="event-location"><a href="#">{{ $event->location }}</a></div>
 
-        </tbody>
-    </table>
+                                    <div class="event-date">{{ $event->datetime }}</div>
+                                </div>
+
+                                <div class="event-cost flex justify-content-center align-items-center">
+                                    Rp<span> {{ $event->price }} </span>
+                                </div>
+                            </header>
+
+                            <footer class="entry-footer">
+                                <a href="{{ route('show', $event->id) }}">See Detail</a>
+                            </footer>
+                        </div>
+                    </div>
+                @empty
+                    <h2 class="event-item-title mb-5">No events found</h2>
+                @endforelse
+
+            </div>
+        </div>
+    </div>
 @endsection

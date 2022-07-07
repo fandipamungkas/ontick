@@ -10,11 +10,17 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title' ,
-        'description' ,
-        'datetime' ,
-        'quota' ,
-        'price' ,
-        'location' ,
+        'title',
+        'description',
+        'datetime',
+        'quota',
+        'price',
+        'location',
+        'image',
     ];
+
+    public function takeImage()
+    {
+        return '/storage/' . $this->image;
+    }
 }

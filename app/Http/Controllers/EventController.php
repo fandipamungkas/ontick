@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
+use App\Http\Requests\EventRequest;
 use App\Models\Event;
-use App\Models\Ticket;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
     public function index()
     {
         $events = Event::get();
+
+        if (auth()->user() && auth()->user()->role == 'admin') {
+            return view('admin.index', compact('events'));
+        }
         return view('index', compact('events'));
+    }
+
+    public function show(Event $event)
+    {
+        return view("show", compact('event'));
     }
 
     public function create()
@@ -20,15 +27,53 @@ class EventController extends Controller
         return  view('create');
     }
 
-    public function store()
+    public function store(EventRequest $request)
     {
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $title = \Str::slug($request->title);
+            $imageUrl = $image->storeAs("images/events", "{$title}.{$image->extension()}");
+        } else {
+            $imageUrl = null;
+        }
+
         Event::create([
-            'title' => request()->title,
-            'description' => request()->description,
-            'datetime' => request()->datetime,
-            'quota' => request()->quota,
-            'price' => request()->price,
-            'location' => request()->location,
+            'title' => $request->title,
+            'description' => $request->description,
+            'datetime' => $request->datetime,
+            'quota' => $request->quota,
+            'price' => $request->price,
+            'location' => $request->location,
+            'image' => $imageUrl,
+        ]);
+
+        return redirect('/');
+    }
+
+    public function edit(Event $event)
+    {
+        return view('edit', compact('event'));
+    }
+
+    public function update(EventRequest $request, Event $event)
+    {
+        if ($request->file('image')) {
+            \Storage::delete($event->image);
+
+            $image = $request->file('image');
+            $title = \Str::slug($event->title);
+            $imageUrl = $image->storeAs("images/events", "{$title}.{$image->extension()}");
+        } else {
+            $imageUrl = $event->image;
+        }
+        $event->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'datetime' => $request->datetime,
+            'quota' => $request->quota,
+            'price' => $request->price,
+            'location' => $request->location,
+            'image' => $imageUrl,
         ]);
 
         return redirect('/');
@@ -38,59 +83,5 @@ class EventController extends Controller
     {
         $event->delete();
         return redirect()->back();
-    }
-
-    public function show(Event $event)
-    {
-        return view("show", compact('event'));
-    }
-
-    public function edit(Event $event)
-    {
-        return view('edit', compact('event'));
-    }
-
-    public function update(Event $event)
-    {
-        $event->update([
-            'title' => request()->title,
-            'description' => request()->description,
-            'datetime' => request()->datetime,
-            'quota' => request()->quota,
-            'price' => request()->price,
-            'location' => request()->location,
-        ]);
-
-        return redirect('/');
-    }
-
-    public function buy(Event $event)
-    {
-        Ticket::create([
-            'event_id' => $event->id,
-            'quantity' => request()->quantity,
-        ]);
-
-        $event->update([
-            'quota' => $event->quota-request()->quantity,
-        ]);
-
-        return redirect('/');
-    }
-    public function payment(Event $event)
-    {
-        return $cart = Cart::get();
-        return view ("payment");
-    }
-
-    public function addcart(Event $event)
-    {
-        Cart::create([
-            'event_id' => $event->id,
-            'quantity' => request()->quantity,
-            'price' => $event->price * request()->quantity,
-        ]);
-
-        return redirect()->route('payment');
     }
 }

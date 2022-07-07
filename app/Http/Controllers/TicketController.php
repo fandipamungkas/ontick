@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ticket;
-use Illuminate\Http\Request;
-
 class TicketController extends Controller
 {
     public function index()
     {
-        $tickets = Ticket::all();
+        $tickets = auth()->user()->tickets;
         return view('ticket.index', compact('tickets'));
     }
 }
