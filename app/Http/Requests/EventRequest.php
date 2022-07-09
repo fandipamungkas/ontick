@@ -30,7 +30,7 @@ class EventRequest extends FormRequest
             "quota" => 'required',
             "price" => 'required',
             "location" => 'required',
-            "image" => 'image|mimes:jpeg,jpg,png|size:1024',
+            "image" => 'image|mimes:jpeg,jpg,png|max:1024',
         ];
     }
 }
