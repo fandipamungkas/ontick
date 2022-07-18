@@ -1,8 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="d-flex">
-        <a class="btn btn-success" href="create">Buat Event Baru</a>
-    </div>
     <h1 class="mt-4">Daftar Event</h1>
     <table class="table">
         <thead>

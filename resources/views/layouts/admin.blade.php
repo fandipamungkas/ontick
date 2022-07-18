@@ -68,10 +68,14 @@
     </nav>
 
     <div class="container py-4">
+        <div class="d-flex">
+            <a class="btn btn-success me-2" href="{{ route('create') }}">Buat Event Baru</a>
+            <a class="btn btn-primary" href="{{ route('transaction') }}">Data Transaksi</a>
+        </div>
         @yield('content')
     </div>
 
-    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

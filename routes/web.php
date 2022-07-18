@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BuyController, EventController, TicketController};
+use App\Http\Controllers\{BuyController, EventController, TicketController, TransactionController};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +21,7 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{event:id}', [EventController::class, 'edit'])->name('edit');
         Route::put('update/{event:id}', [EventController::class, 'update'])->name('update');
         Route::delete('delete/{event:id}', [EventController::class, 'delete'])->name('delete');
+
+        Route::get('transaction', TransactionController::class)->name('transaction');
     });
 });
