@@ -19,7 +19,9 @@
                 @forelse ($events as $event)
                     <div class="col-12 col-lg-6 single-event">
                         <figure class="events-thumbnail">
-                            <a href="#"><img src={{ $event->takeImage() }} alt=""></a>
+                            <a href="#" class="box-image">
+                                <img class="inside-box-image" src={{ $event->takeImage() }} alt="">
+                            </a>
                         </figure>
 
                         <div class="event-content-wrap">

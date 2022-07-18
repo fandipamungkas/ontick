@@ -12,9 +12,9 @@ class BuyController extends Controller
     public function addcart(Event $event)
     {
         request()->validate([
-            'quantity' => 'required|numeric|min:1',
+            'quantity' => 'required|numeric|min:1|max:4',
         ]);
-        
+
         if (request()->quantity > $event->quota) {
             return redirect()->back()->with('error', 'Sorry, the ticket you bought is over the limit.');
         }
