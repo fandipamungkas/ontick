@@ -23,6 +23,19 @@
             @enderror
         </div>
         <div class="mb-3">
+            <label for="" class="form-label">Category</label>
+            <select class="form-control" name="category_id" id="category_id">
+                @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+            @error('category')
+                <span class="text-danger small">
+                    {{ $message }}
+                </span>
+            @enderror
+        </div>
+        <div class="mb-3">
             <label for="" class="form-label">Description</label>
             <input type="text" class="form-control" name="description" id="description"
                 placeholder="Masukkan Deskripsi">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EventRequest;
+use App\Models\Category;
 use App\Models\Event;
 
 class EventController extends Controller
@@ -24,7 +25,8 @@ class EventController extends Controller
 
     public function create()
     {
-        return  view('create');
+        $categories = Category::all();
+        return view('create', compact('categories'));
     }
 
     public function store(EventRequest $request)
@@ -39,6 +41,7 @@ class EventController extends Controller
 
         Event::create([
             'title' => $request->title,
+            'category_id' => $request->category_id,
             'description' => $request->description,
             'datetime' => $request->datetime,
             'quota' => $request->quota,
@@ -52,7 +55,8 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
-        return view('edit', compact('event'));
+        $categories = Category::all();
+        return view('edit', compact('event', 'categories'));
     }
 
     public function update(EventRequest $request, Event $event)
@@ -68,6 +72,7 @@ class EventController extends Controller
         }
         $event->update([
             'title' => $request->title,
+            'category_id' => $request->category_id,
             'description' => $request->description,
             'datetime' => $request->datetime,
             'quota' => $request->quota,

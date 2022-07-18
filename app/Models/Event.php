@@ -11,6 +11,7 @@ class Event extends Model
 
     protected $fillable = [
         'title',
+        'category_id',
         'description',
         'datetime',
         'quota',
@@ -18,6 +19,11 @@ class Event extends Model
         'location',
         'image',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function takeImage()
     {

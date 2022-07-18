@@ -9,12 +9,13 @@
             <tr>
                 <td>Image</td>
                 <td>Nama Event</td>
+                <td>Kategori</td>
                 <td>Deskripsi</td>
                 <td>Waktu</td>
                 <td>Kuota</td>
                 <td>Harga</td>
                 <td>Lokasi</td>
-                <td>action</td>
+                <td>Action</td>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                         <img src="{{ $event->takeImage() }}" alt="" style="width:200px">
                     </td>
                     <td>{{ $event->title }}</td>
+                    <td>{{ $event->category->name }}</td>
                     <td>{{ $event->description }}</td>
                     <td>{{ $event->datetime }}</td>
                     <td>{{ $event->quota }}</td>
