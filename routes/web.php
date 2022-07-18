@@ -14,6 +14,7 @@ Route::middleware('auth')->group(function () {
     Route::get('payment', [BuyController::class, 'payment'])->name('payment');
     Route::post('buy/{cart:id}', [BuyController::class, 'buy'])->name('buy');
     Route::get('my-tickets', [TicketController::class, 'index'])->name('ticket.index');
+    Route::get('download/{event:id}', [EventController::class, 'download'])->name('download');
 
     Route::middleware('AdminRole')->group(function () {
         Route::get('create', [EventController::class, 'create'])->name('create');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EventRequest;
 use App\Models\Category;
 use App\Models\Event;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EventController extends Controller
 {
@@ -88,5 +89,12 @@ class EventController extends Controller
     {
         $event->delete();
         return redirect()->back();
+    }
+
+    public function download(Event $event)
+    {
+        $ticket = auth()->user()->tickets()->where('event_id', $event->id)->first();
+        $pdf = pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView("ticket.download", compact('event', 'ticket'));
+        return $pdf->download('test.pdf');
     }
 }

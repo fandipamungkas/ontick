@@ -42,7 +42,7 @@
                             </header>
 
                             <footer class="entry-footer">
-                                <a href="{{ route('show', $ticket->event->id) }}">See Detail</a>
+                                <a href="{{ route('download', $ticket->event->id) }}">Download</a>
                             </footer>
                         </div>
                     </div>
